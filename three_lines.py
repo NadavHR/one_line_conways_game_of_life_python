@@ -21,6 +21,6 @@ memory = {'clear': lambda: (os.system("cls")),
           'print': lambda mem: (field := mem['field'][0],
                                 print("\n".join(["".join('#' if j == 1 else ' ' for j in i) for i in field]))),
           'run_generations': lambda mem: (mem['clear'](), mem['print'](mem), time.sleep(1), mem['update'](mem), mem['run_generations'](mem)),
-          'start': lambda mem: (mem['init'](mem), mem['run_generations'](mem)),
+          'start': lambda mem: (mem['init'](mem), (lambda mem: [mem['run_generations'](mem) for _ in iter(int, 1)])(mem)),
           'field': []}
 memory['start'](memory)
