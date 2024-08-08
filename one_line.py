@@ -1,4 +1,3 @@
-import os, time
 # memory clear clears stdout
 # memory init initializes field
 # memory update updates the field
@@ -6,7 +5,7 @@ import os, time
 # memory print prints the field
 # memory run_generations starts running generations
 # memory start starts the game
-memory = {'clear': lambda: (os.system("cls")),
+(lambda: (memory := {'clear': lambda: (__import__('os').system("cls")),
           'init': lambda mem: mem['field'].append(*(
                 ([([[1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1]] * 10) +
                 ([[0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1]] * 10)]))),
@@ -20,7 +19,7 @@ memory = {'clear': lambda: (os.system("cls")),
                                  mem['field'].append(new_field)),
           'print': lambda mem: (field := mem['field'][0],
                                 print("\n".join(["".join('#' if j == 1 else ' ' for j in i) for i in field]))),
-          'run_generations': lambda mem: (mem['clear'](), mem['print'](mem), time.sleep(1), mem['update'](mem), mem['run_generations'](mem)),
+          'run_generations': lambda mem: (mem['clear'](), mem['print'](mem), __import__('time').sleep(1), mem['update'](mem), mem['run_generations'](mem)),
           'start': lambda mem: (mem['init'](mem), mem['run_generations'](mem)),
-          'field': []}
-memory['start'](memory)
+          'field': []}, memory['start'](memory)))()
+
